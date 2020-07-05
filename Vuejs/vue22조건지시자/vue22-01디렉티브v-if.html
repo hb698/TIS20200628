@@ -48,7 +48,7 @@
     <hr>
 
 
-    <h2>v-if 연습 1</h2>
+    <h2>v-if 연습 1 #app1 인스턴스 data에 프로퍼티 awesome에 어떤값을 설정하면 될까</h2>
     <div id="app1">
         <h3 v-if="awesome">Vue is awesome!</h3>
         <h3 v-else>Oh no 😢</h3>
@@ -89,3 +89,83 @@
     </div>
 </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>    
+<script>
+   new Vue({
+       el : "#app1",
+       data : {
+        awesome : true,
+       }
+   }),
+   
+   new Vue({
+       el : "#app2",
+       data : {
+        awesome : false,
+       }
+   }),
+
+   new Vue({
+        el : "#app3",
+        data :{
+            awesome : true,
+        },
+        methods : {
+            clickBind : function(event){
+              //  awesome = false;
+              if(this.$data.awesome==true)
+              {
+                this.$set(this.$data, "awesome", false);
+              }
+              else {
+                this.$set(this.$data, "awesome", true);
+                }
+            }
+        },        
+   }),
+
+   new Vue({
+        el : "#app5",
+        data :{
+            type : "1",
+        },
+        methods : {
+            clickBind : function(event){
+                
+                if(this.$data.type=="1")
+              {
+                this.$set(this.$data, "type", 2);
+              }
+             else if(this.$data.type=="2"){
+                this.$set(this.$data, "type", 3); 
+             }
+              else {
+                this.$set(this.$data, "type", 1);
+                }
+
+                this.$data.type = this.$data.type %4
+                //this.$set(this.$data, "type", 3);
+                
+            
+            }
+        },        
+   })  
+
+/*
+   new Vue({
+        el : "#app4",
+        data :{
+            awesome : true,
+        },
+        methods : {
+            clickBind : function(event){
+                awesome = false;
+                this.$set(this.$data, "awesome", false);
+            }
+        },        
+   })*/
+   
+
+</script>
+
+

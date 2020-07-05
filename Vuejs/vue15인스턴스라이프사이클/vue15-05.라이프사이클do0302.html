@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue Instance Lifecycle</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
 
     <!-- CSS import -->
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/reset.css" />
 
     <!-- vue 스크립트 플러그인 임포트   -->
-    
-
-</head>
-<body>
+  </head>
+  <body>
     <pre>
 
         Vue 라이프 사이클 단계 속성과 목적을 이해한다
@@ -23,13 +24,65 @@
         Vue 라이프 사이클 mounted 단계가 실행되게 하려면 어떻게 하면 되는가?
 		
 		mounted 단계는 화면의 일부분이 새로고침(렌더링)되는 것을 의미한다. 
-
+        기능 추가 
+        버튼을 만들고 클릭이벤트 설정
+        1. 버튼을 만들고 클릭 이벤트 설정        
+        2. 버튼 클릭 message를 자신의이름으로,
         [참조]page 49
     </pre>
-    <hr>
+    <hr />
 
     <div id="app">
-        {{ message }}
+      {{ message }}
+
+      <button v-on:click="btnclick">버튼</button>
     </div>
-</body>
+  </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+  var a = 1;
+  new Vue({
+    el: "#app",
+    data: {
+      message: "Hello",
+    },
+    template: null,
+    methods: {
+      btnclick: function (event) {
+        a++;
+        this.$set(this.$data, "message", "석진" + a);
+            
+      },
+    },
+    components: null,
+    computed: {},
+    watch: {},
+
+    /*life cycle : create -> mount-> update -> destroy */
+    beforeCreate: function () {
+      console.log("beforeCreate");
+    },
+    created: function () {
+      console.log("created");
+    },
+    beforeMount: function () {
+      console.log("beforeMount");
+    },
+    mounted: function () {
+      console.log("mounted");
+    },
+    beforeUpdate: function () {
+      console.log("beforeUpdate");
+    },
+    updated: function () {
+      console.log("updated");
+    },
+    beforeDestroy: function () {
+      console.log("beforeDestroy");
+    },
+    destroyed: function () {
+      console.log("destroyed");
+    },
+  });
+</script>

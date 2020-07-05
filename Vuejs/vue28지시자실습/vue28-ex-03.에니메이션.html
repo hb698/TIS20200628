@@ -37,5 +37,50 @@
 </body>
 
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var number =0;
+    var src= "../images/";
+    new Vue({
+        el : "#app",
+        data : {
+            movieimageSrc : "",
+        },
+        methods: {
+            clickPrev : function(e){
 
-
+            },
+            clickNext : function(e){
+                
+                if(number <10)
+                {
+                    this.$data.movieimageSrc = "../images/0"+number+".png";
+                }
+                else{debugger
+                    this.$data.movieimageSrc = "../images/+"+number+".png";
+                }
+            
+            if(number===14)
+            {
+                
+                number=0;
+            }
+            else{
+                
+                number++;
+            }
+               // this.$data.movieimageSrc = "../images/14.png";
+                //e.target.src= "../images/14.png";
+                
+            },
+            clickStart : function(e){
+                
+            },
+            clickStop : function(e){
+                
+            }
+        },
+    })
+</script>
+
+
