@@ -34,6 +34,9 @@
             v-model:selected
 
         [참조]page
+
+        속성없이 v-mode만도 사용 가능하다
+        
     </xmp>
     <hr>
     <h2>v-model 연습</h2>
@@ -104,3 +107,22 @@
     </div>
 </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : "#app3",
+        data : {
+            name : null,
+            message : null,
+            checked : null,
+            checkedNames : [],
+            picked : null,
+            selected : null,
+            options : [
+                {text:"One", value:"A"},
+                {text:"Two", value:"B"},
+                {text:"Three", value:"C"},
+            ]
+        }
+    })
+</script>

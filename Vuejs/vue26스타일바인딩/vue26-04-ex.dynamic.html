@@ -35,9 +35,48 @@
     </pre>
     <!-- div#app을 클릭하면 state값을 변경하는 메소드를 구성하세요.
         ready => active => done => ready -->
-    <div id="app" v-bind:class="state" v-on:click="change">
+    <div id="app" v-bind:class="state" v-on:click="change">        
         {{msg}}
     </div>
 </body>
 </html>
-
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data : {
+            state: "ready",
+         //   msg : "ready"
+        },
+        methods: {
+            change : function(event){
+                debugger
+                //event.currentTarget.classList.value ="active"
+                if(event.currentTarget.classList.value==="ready")                
+                {
+                    this.$data.state = "active";
+                  //  this.$data.msg = "active";
+                }
+                else if(event.currentTarget.classList.value==="active")                
+                {
+                    this.$data.state = "done";
+                   // this.$data.msg = "done";
+                }
+                else 
+                {
+                    this.$data.state = "ready";
+                   // this.$data.msg = "ready";
+                }
+                
+            }
+        },
+        computed: {
+            msg  : function(){
+                return this.$data.state;
+            }
+        },
+        
+    })
+
+
+</script>

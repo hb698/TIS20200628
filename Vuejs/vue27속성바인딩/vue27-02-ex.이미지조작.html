@@ -1,31 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <style>
-        img { padding:5px; width:130px; height:130px; border:1px solid gray; }
+      img {
+        padding: 5px;
+        width: 130px;
+        height: 130px;
+        border: 1px solid gray;
+      }
     </style>
-</head>
-<body>
-	<pre>
+  </head>
+  <body>
+    <pre>
 		연습 문제. 직접 작성하여 본다. 
 		html 태그에 Vue 지시지 작성을 연습하는 예제입니다.
-		Vue 지시자를 설정하시오. 
-	</pre>
+        Vue 지시자를 설정하시오. 
+        
+        이미지 클릭시 아래의 그림이 나오게한다.
+        img1..2,3,4,5
+	</pre
+    >
     <h2>&lt;img id="" src="" title="" alt="" /&gt;</h2>
+    <div id="divapp">
+      <h3>어트리뷰트 추가</h3>
+      <img
+        id="im1"
+        v-bind:src="imgsrc.im1"
+        title="im1.jpg"
+        alt="im1.jpg"
+        v-on:click="imgClick"
+      />
+      <img id="im2" v-bind:src="imgsrc.null" v-on:click="imgClick" />
+      <img id="im3" v-bind:src="imgsrc.null" v-on:click="imgClick" />
+      <img id="im4" v-bind:src="imgsrc.null" v-on:click="imgClick" />
+      <img id="im5" v-bind:src="imgsrc.null" title="im5.jpg" v-on:click="imgClick" />
 
-    <h3>어트리뷰트 추가</h3>
-    <img id="img1" src="../images/im1.jpg" title="im1.jpg" alt="im1.jpg" />
-    <img id="img2" />
-    <img id="img3" />
-    <img id="img4" />
-    <img id="img5" title="im5.jpg" />
-
-    <h3>어트리뷰트 제거</h3>
-    <img id="img6" src="../images/im5.jpg" title="im5" alt="im5.jpg" />
-</body>
+      <h3>어트리뷰트 제거</h3>
+      <img id="img6" v-bind:src="imgsrc.im5" title="im5" alt="im5.jpg" />
+    </div>
+  </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: "#divapp",
+    data :{
+        imgsrc:{
+            null :"",
+            im1: "../images/im1.jpg",
+            im2: "../images/im2.jpg",
+            im3: "../images/im3.jpg",
+            im4: "../images/im4.jpg",
+            im5: "../images/im5.jpg",
+        }
+    },
+    methods: {
+      imgClick: function (event) {
+          var id속성값 =event.target.id;
+          event.target.src = this.$data.imgsrc[id속성값];
 
-<!-- 임포트 -->
+          if(id속성값==="im6")
+          {
+              event.target.src =  this.$data.imgsrc.null;
+          }
+         // window.event.target.src  = val        
+        // event.target.src = "../images/im1.jpg"//../images/im1.jpgthis.target.id;;
+      },
+    },
+  });
+
+  function imgClick(val) {}
+</script>
+<!-- 임포트 -->

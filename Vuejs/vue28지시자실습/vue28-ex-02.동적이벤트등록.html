@@ -61,5 +61,39 @@
     </div>
 </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+    new Vue({
+        el : "#app",
+        data : {
+            ptags : [],
+            stags : [],
+            rhtml : null,
+        },
+        methods : {
+            clickPtag : function(event){
+                //참조 타입 변수를 재할당해야한다.
+                Vue.set(this.$data.ptags, this.$data.ptags.length, this.$data.ptags.length+ " p paragraph!!!")
+            },
+            clickStag : function(event){
+                Vue.set(this.$data.stags, this.$data.stags.length, this.$data.stags.length+ " s paragraph!!!")
+            },
+            clickDynamic : function(event){
+                console.log(event, event.target);
 
-
+                //클릭된 node(추가된 태그)의 태그이름을 어떻게 알 수 있을까 
+                //p태그에서 클릭한 경우에만 표시
+                //span 태그에서 클릭한 경우에는 표시 : x
+                debugger
+                if(event.target.tagName ==="P") //eventtagname은 대문자로 표기된다.
+                {
+                    this.$data.rhtml = event.target.innerHTML;
+                }
+            }
+            
+
+        }
+
+    })
+</script>
+

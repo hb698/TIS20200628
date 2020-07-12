@@ -1,41 +1,124 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Enhancing Links</title>
     <style>
-        .icon-links a { background:0 50% no-repeat;padding-left:20px; }
-        a.presentation { background-image: url(../images/presentation.png); }
-        a.video { background-image: url(../images/video.png); }
-        a.pdf { background-image: url(../images/pdf.png);	}
-        a.image { background-image: url(../images/image.png); }
+      .icon-links a {
+        background: 0 50% no-repeat;
+        padding-left: 20px;
+      }
+      a.presentation {
+        background-image: url(../images/presentation.png);
+      }
+      a.video {
+        background-image: url(../images/video.png);
+      }
+      a.pdf {
+        background-image: url(../images/pdf.png);
+      }
+      a.image {
+        background-image: url(../images/image.png);
+      }
     </style>
-</head>
-<body>
-<div id="content">
-    <h1>Adding Icons to Links</h1>
-    <p>Here's a list of downloadable files:</p>
-    <ul class="icon-links">
-        <li><a href="presentation.ppt">Presentation slides</a></li>
-        <li><a href="video.mp4">Video of presentation</a></li>
-        <li><a href="notes.pdf">Notes for presentation</a></li>
-        <li><a href="icons.gif">GIF Icon sprite</a></li>
-        <li><a href="icons.png">PNG Icon sprite</a></li>
-        <li><a href="icons.jpg">PNG Icon sprite</a></li>
+  </head>
+  <body>
+    <div id="content">
+      <h1>Adding Icons to Links</h1>
+      <p>Here's a list of downloadable files:</p>
+      <ul class="icon-links">
+        <li>
+          <a v-bind:class="aclass.null" href="presentation.ppt" v-on:click.prevent="aclick"
+            >Presentation slides</a
+          >
+        </li>
+        <li>
+          <a v-bind:class="aclass.null" href="video.mp4" v-on:click="aclick"
+            >Video of presentation</a
+          >
+        </li>
+        <li>
+          <a v-bind:class="aclass.null" href="notes.pdf" v-on:click="aclick"
+            >Notes for presentation</a
+          >
+        </li>
+        <li>
+          <a v-bind:class="aclass.null" href="icons.gif" v-on:click="aclick"
+            >GIF Icon sprite</a
+          >
+        </li>
+        <li>
+          <a v-bind:class="aclass.null" href="icons.png" v-on:click="aclick"
+            >PNG Icon sprite</a
+          >
+        </li>
+        <li>
+          <a v-bind:class="aclass.null" href="icons.jpg" v-on:click="aclick"
+            >PNG Icon sprite</a
+          >
+        </li>
 
-
-        <li><a href="fuyyu.ppt">Presentation slides</a></li>
-        <li><a href="fyyuy.mp4">Video of presentation</a></li>
-        <li><a href="uydyuflk.pdf">Notes for presentation</a></li>
-        <li><a href="OIP.gif">GIF Icon sprite</a></li>
-        <li><a href="ID7890IO.png">PNG Icon sprite</a></li>
-        <li><a href="PFDY.jpg">PNG Icon sprite</a></li>
-    </ul>
-</div>
-</body>
+        <li><a v-bind:class="aclass.null" href="fuyyu.ppt" v-on:click="aclick">Presentation slides</a></li>
+        <li><a v-bind:class="aclass.null" href="fyyuy.mp4" v-on:click="aclick">Video of presentation</a></li>
+        <li><a v-bind:class="aclass.null" href="uydyuflk.pdf" v-on:click="aclick">Notes for presentation</a></li>
+        <li><a v-bind:class="aclass.null" href="OIP.gif" v-on:click="aclick">GIF Icon sprite</a></li>
+        <li><a v-bind:class="aclass.null" href="ID7890IO.png" v-on:click="aclick">PNG Icon sprite</a></li>
+        <li><a v-bind:class="aclass.null" href="PFDY.jpg" v-on:click="aclick">PNG Icon sprite</a></li>
+      </ul>
+    </div>
+  </body>
 </html>
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+/*
+a.presentation {
+        background-image: url(../images/presentation.png);
+      }
+      a.video {
+        background-image: url(../images/video.png);
+      }
+      a.pdf {
+        background-image: url(../images/pdf.png);
+      }
+      a.image {
+        background-image: url(../images/image.png);
+      }*/
+  new Vue({
+    el: "#content",
+    data: {
+      aclass: {
+          pdf :"presentation",
+          mp4 :"video",
+          pdf :"pdf",
+          img :"image",
+          null:"",
+      },
+    },
+    methods: {
+        
+      aclick: function (event) {
+      //  event.stopPropagation();
+       // event.preventDefault(); 대신에 .prevent선언해도 됨
 
+        var ext = event.target.href.split(".")[1];
+        if (ext === "ppt") {   
+              event.target.classList.value = "pdf";         
+        }
+        else if(ext==="mp4"){           
+            event.target.classList.value = "video";
+        }
+        else if(ext==="pdf"){           
+            event.target.classList.value = "pdf";
+        }
+        else if(ext==="gif" || ext==="png" || ext==="jpg"){         
+            event.target.classList.value = "image";
+        }
+       
+        
+      },
+    },
+  });
+</script>
 <!-- 임포트 -->
-
