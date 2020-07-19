@@ -59,9 +59,10 @@
 <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 <script>
   Vue.component("component-box", {
+    //np dt mc^2 w
     //npdtmc^2w
     name: "",
-    props: [],
+    props: ["num"],
     data: function () {
       return {
         style1: {
@@ -75,17 +76,19 @@
       };
     },
     template: `
-        <div>
-                <span v-bind:style="style1">{{number}}</span>
-                </div>
+      <span v-bind:style="style1">{{num}}</span>
         `,
   });
 
   new Vue({
     el: "#app",
-    data: {},
+    data: {
+      arr: [0, 1, 2, 3, 4, 5],
+    },
     methods: {
-      clickAddBox: function (event) {},
+      clickAddBox: function (event) {
+        Vue.set(this.$data.arr, this.$data.arr.length, this.$data.arr.length);
+      },
     },
   });
 </script>

@@ -1,40 +1,42 @@
 <!-- ex08_crud.html -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
 
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <!-- CSS import -->
+    <link rel="stylesheet" href="../css/reset.css" />
+    <style>
+      .strong {
+        color: red;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
 
-  <!-- CSS import -->
-  <link rel="stylesheet" href="../css/reset.css" />
-  <style>
-    .strong {
-      color: red;
-      font-weight: bold;
-      font-size: 1.2em;
-    }
+      label {
+        display: inline-block;
+        width: 80px;
+      }
 
-    label {
-      display: inline-block;
-      width: 80px;
-    }
+      #app > div {
+        margin: 5px 0;
+      }
+    </style>
 
-    #app>div {
-      margin: 5px 0;
-    }
-  </style>
+    <!-- vue 스크립트 플러그인 임포트   -->
+  </head>
 
-  <!-- vue 스크립트 플러그인 임포트   -->
-</head>
-
-<body>
-  <pre>
+  <body>
+    <pre>
         CRUD 방법을 학습한다.
 
         Object Array 에서 최대값 구하는 방법은 구글 검색을 이용한다.
@@ -42,41 +44,44 @@
         방법1. .map() 를 사용하는 방법
         방법2. .reducer()
     </pre>
-  <div id="app">
-    <!-- list 데이터를 table형태로 출력하고 power가 300이상인 사람은 글자색을 red로 bold스타일로 출력하세요. -->
-    <h1>Creat Read Update Delete</h1>
-    <div>
-      <label for="">Name : </label>
-      <input type="text" ref="myinput" v-model="user.name" />
+    <div id="app">
+      <!-- list 데이터를 table형태로 출력하고 power가 300이상인 사람은 글자색을 red로 bold스타일로 출력하세요. -->
+      <h1>Creat Read Update Delete</h1>
+      <div>
+        <label for="">Name : </label>
+        <input type="text" ref="myinput" v-model="user.name" />
+      </div>
+      <div>
+        <label for="">Power : </label>
+        <input type="text" v-model="user.power" />
+      </div>
+      <button v-on:click="insert">Add</button>
+      <hr />
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>POWER</th>
+          <th>CRUD</th>
+        </tr>
+        <tr
+          v-for="(man, index) in list"
+          v-bind:key="man.id"
+          v-bind:class="{strong:man.power>=300}"
+        >
+          <td>{{man.id}}</td>
+          <td>{{man.name}}</td>
+          <td>{{man.power}}</td>
+          <td>
+            <button v-on:click="doDel(man.id, index)">Del</button>
+            <button v-on:click="doUp(man.id, index)">Power Up</button>
+            <button v-on:click="doDown(man.id, index)">Power Down</button>
+            <button v-on:click="doEdit(man.id, index)">Edit</button>
+          </td>
+        </tr>
+      </table>
     </div>
-    <div>
-      <label for="">Power : </label>
-      <input type="text" v-model="user.power" />
-    </div>
-    <button v-on:click="insert">Add</button>
-    <hr />
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th>POWER</th>
-        <th>CRUD</th>
-      </tr>
-      <tr v-for="(man, index) in list" v-bind:key="man.id" v-bind:class="{strong:man.power>=300}">
-        <td>{{man.id}}</td>
-        <td>{{man.name}}</td>
-        <td>{{man.power}}</td>
-        <td>
-          <button v-on:click="doDel(index)">Del</button>
-          <button v-on:click="doUp(index)">Power Up</button>
-          <button v-on:click="doDown(index)">Power Down</button>
-          <button v-on:click="doEdit(index)">Edit</button>
-        </td>
-      </tr>
-    </table>
-  </div>
-</body>
-
+  </body>
 </html>
 <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
 <script>
@@ -84,6 +89,7 @@
     el: "#app",
     data: {
       user: {
+        id: null,
         name: null,
         power: 0,
       },
@@ -100,75 +106,87 @@
         //입력 값 user에 있다
 
         console.log(this.$data.user);
-        debugger
+
         var user = this.$data.user;
-        //user.id =
 
+        //추가   
+        var maxobj = this.$data.list.reduce(function (a, b) {
+          //return a.id > b.id ? a : b
+          return a.id > b.id ? a : b;
+        });
+        
+        if (maxobj) {
+          user.id = Number(maxobj.id) + 1;
+        } else {
+          user.id = 1;
+        }
 
+        Vue.set(this.$data.list, this.$data.list.length, user);
+
+        /* 
+        var user = this.$data.user;
+        
         var id = 1;
 
-        /*
-                for (arr in this.$data.list) {
-                  //debugger
-                  if (id < this.$data.list[arr].id) {
-                    id = this.$data.list[arr].id;
-                  }
-                }
-                id++;
-                user.id = id;*/
-
         if (this.$data.list.length > 0) {
-
-
           var max = this.$data.list.reduce(function (a, b) {
-
+            //return a.id > b.id ? a : b
             if (a.id > b.id) {
               return a;
-            }
-            else
-              return b;
+            } else return b;
           });
           id = max.id++;
         }
 
         user.id = id;
 
-
-
         //user를 this.$data.list에 추가하시오
         Vue.set(this.$data.list, this.$data.list.length, user);
 
-        //vue.set("","","")
+        //vue.set("","","")*/
       },
 
-      doDel: function (index) {
-        //this.$data.list[index].remove();
+      doDel: function (userid, index) {
+        //참조 타입 변수이면 재할당(===깊은복사)필요;
         this.$data.list.splice(index, 1);
       },
 
-      doUp: function (index) {
-        var number = Number(this.$data.list[index].power);
-        number = number + 100;
+      doUp: function (userid, index) {
+        var users = this.$data.list.filter(function (el) {
+          return el.id == this ? el : null; //this ===userid
+        }, userid);
 
-        this.$data.list[index].power = number
+        var user = users[0];
+        user.power = Number(user.power) + 100;
+        Vue.set(this.$data.list, index, user);
+
+        // var number = Number(this.$data.list[index].power);
+        // number = number + 100;
+
+        //this.$data.list[index].power = number;
       },
-      doDown: function (index) {
+      doDown: function (userid, index) {
+        var users = this.$data.list.filter(function (el) {
+          return el.id == this ? el : null; //this ===userid
+        }, userid);
+
+        var user = users[0];
+        user.power = Number(user.power) - 50;
+        Vue.set(this.$data.list, index, user);
+        /*
         var number = Number(this.$data.list[index].power);
         number = number - 100;
 
-        this.$data.list[index].power = number
-
+        this.$data.list[index].power = number;*/
       },
-      doEdit: function (index) {
-        this.$data.list[index].power = this.$data.user.power;
-        this.$data.list[index].name = this.$data.user.name;;
-      }
-      /*
-        <button v-on:click="doUp(index)">Power Up</button>
-          <button v-on:click="doDown(index)">Power Down</button>
-          <button v-on:click="doEdit(index)">Edit</button>
-      */
-    },
+      doEdit: function (userid, index) {
+        this.$data.user = this.$data.list[index];
 
+        /*
+        this.$data.list[index].power = this.$data.user.power;
+        this.$data.list[index].name = this.$data.user.name;
+        */
+      },
+    },
   });
 </script>

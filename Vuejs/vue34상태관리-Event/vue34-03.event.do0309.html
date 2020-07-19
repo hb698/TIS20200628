@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue Event Emit Sample</title>
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
 
     <!-- CSS import -->
-    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/reset.css" />
 
     <!-- vue 스크립트 플러그인 임포트   -->
-        
-
-</head>
-<body>
+  </head>
+  <body>
     <pre>
 
       Vue 컴포넌트 상태관리에 대해서 배운다.
@@ -32,13 +33,39 @@
       [참조]page 62~75
     </pre>
 
-      <img src="../images/components_parent_child.png" alt="" srcset="">
-    <hr>
+    <img src="../images/components_parent_child.png" alt="" srcset="" />
+    <hr />
     <div id="app">
-        <child-component v-on:show-log="printText"></child-component>
+      <!--v-on:show-log="printText" show-log는 compent에선언 printText는 Vue인스턴스에선언-->
+      <child-component v-on:show-log="printText"></child-component>
     </div>
-
-</body>
+  </body>
 </html>
-
-
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"></script>
+<script>
+  Vue.component("child-component", {
+    props: [],
+    data: function () {
+      return {};
+    },
+    template: `
+            <div>
+                <button v-on:click="showlog">show</button>
+            </div>
+        `,
+    methods: {
+      showlog: function (event) {
+        //이벤트 발생        
+        this.$emit("show-log", "인자1", "인자2");
+      },
+    },
+  });
+  new Vue({
+    el: "#app",
+    methods: {
+      printText: function (param1, param2) {                  
+        console.log(param1, param2);
+      },
+    },
+  });
+</script>

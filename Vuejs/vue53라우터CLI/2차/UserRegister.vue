@@ -120,7 +120,7 @@ export default {
         checkId: function() {
 
         },
-        checkPwd: functione){
+        checkPwd: function(){
 
         },
         checkRePwd : function() {
